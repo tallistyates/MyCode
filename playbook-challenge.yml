@@ -1,0 +1,30 @@
+- name: copy file
+  hosts: planetexpress
+
+  vars_prompt:
+  - name: "myprogram"
+    prompt: "What Program do you want to install on the host?"
+
+
+  roles:
+  - copy_file
+
+  # This needs to be in the roles tasks/main.yml file
+  #  - copy:
+  #      src: ~/ans/files/fry.txt
+  #      dest: ~/
+
+  tasks:
+  - name: Use apt to install program
+    apt:
+      name: "{{ myprogram }}"
+      state: present
+    become: True
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Use yum to install program
+    apt:
+      name: "{{ myprogram }}"
+      state: present
+    become: True
+    when: ansible_distribution == "CentOS"

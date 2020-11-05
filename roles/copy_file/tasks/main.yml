@@ -1,0 +1,18 @@
+
+- name: copy file  
+  # This needs to be in the roles tasks/main.yml file
+  copy:
+    src: ~/ans/files/fry.txt
+    dest: ~/
+
+ 
+- name: Use shell to do an ls on the ~/ dir
+  shell: ls ~/
+  register: contentz_ls
+
+- name: print out results of previous ls command
+  debug:
+    msg: "{{ contentz_ls }}" 
+
+
+        
